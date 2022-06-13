@@ -10,13 +10,13 @@ import (
 )
 
 const (
-	blankAvatar = "blankAvatar.png" // the default name for the output image
-	bytesLen    = 20                // this is the len of the array of bytes returned by the encoder
-	newAvatar   = "newAvatar.jpg"
+	blankAvatar = "blankAvatar.png" // blankAvatar is the default name for the base image.
+	bytesLen    = 20                // bytesLen is the len of the array of bytes returned by the encoder.
+	newAvatar   = "newAvatar.jpg"   // newAvatar is the name of the output file.
 )
 
 /*
-is the structure that allows to assign colors to the encoded info.
+imageGenerator is a struct that allows to assign colors to the encoded info.
 Edits the blankAvatar and generates the identicon.
 */
 type imageGenerator struct {
@@ -24,6 +24,7 @@ type imageGenerator struct {
 
 }
 
+// colorTransformer is an interface designed to isolate the BytesArrayToColorArray conversion process.
 type ColorTransformer interface {
 	//here goes the implementation to transform bytes into colors
 	BytesArrayToColorArray(encodedInformations []byte) (colors []color.Color, err error)
@@ -36,7 +37,7 @@ type Drawer struct {
 	colorEngine ColorTransformer
 }
 
-//This is a constructor for the drawer struct. It takes a transformer that implements
+//NewDrawer is a constructor for the drawer struct. It takes a transformer that implements
 // ColorTransformer interface and returns a pointer to the struct.
 func NewDrawer(transformer ColorTransformer) *Drawer {
 	return &Drawer{
@@ -45,7 +46,7 @@ func NewDrawer(transformer ColorTransformer) *Drawer {
 }
 
 /*
-This function is added to the drawer struct.
+BuildAndSaveImage is added to the drawer struct.
 It receives an slice of bytes and builds and saves an identicon for the array of bytes given.
 It only returns an error. It returns nil when execution was succesfull.
 */

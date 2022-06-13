@@ -6,15 +6,17 @@ import (
 	"image/color/palette"
 )
 
+// ColorCreatorFromBytes has the methods to convert bytes to color.
 type ColorCreatorFromBytes struct{}
 
+// NewColorCreatorFromBytes is a constructor for ColorCreatorFromBytes struct.
 func NewColorCreatorFromBytes() *ColorCreatorFromBytes {
 	return &ColorCreatorFromBytes{}
 }
 
+// BytesArrayToColorArray converts a slice of bytes into a slice of color.Color type.
 func (c *ColorCreatorFromBytes) BytesArrayToColorArray(encodedInformations []byte) (colors []color.Color, err error) {
-	// the first rusty implementation is to asign some range of byte values to a defined color
-	// first I defined that I will use just 4 colours
+	// iterates over the encoded information and converts every byte into a color array
 	for _, b := range encodedInformations {
 		tempColor, err := c.ByteToColor(b)
 		if err != nil {
