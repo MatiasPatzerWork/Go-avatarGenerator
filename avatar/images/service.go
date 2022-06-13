@@ -29,17 +29,15 @@ type ColorTransformer interface {
 	BytesArrayToColorArray(encodedInformations []byte) (colors []color.Color, err error)
 }
 
-// drawer tiene una interface que es ColorTransformer o algo asi que transforma de
-// byte a color y tiene los parámetros de la imagen width, height y strides
-// estas estructuras son privadas. Porque no quiero el que ocupe la libreria
-// modifique el colorTransformer ni que formas. Por eso debo darle un puntero a una
-// estructura instanciada con los parámetros que el usuario adiciona
+// Drawer is a struct that has the methods to build and save the avatar. Color engine
+// is the implementation of the color transformer interface. Is the way that
+// bytes are converted to a color array.
 type Drawer struct {
 	colorEngine ColorTransformer
 }
 
 //This is a constructor for the drawer struct. It takes a transformer that implements
-// ColorTransformer interface, width and height (int values) and returns a pointer.
+// ColorTransformer interface and returns a pointer to the struct.
 func NewDrawer(transformer ColorTransformer) *Drawer {
 	return &Drawer{
 		transformer,
@@ -47,7 +45,7 @@ func NewDrawer(transformer ColorTransformer) *Drawer {
 }
 
 /*
-This function is added to the imageGenerator struct.
+This function is added to the drawer struct.
 It receives an slice of bytes and builds and saves an identicon for the array of bytes given.
 It only returns an error. It returns nil when execution was succesfull.
 */
@@ -87,6 +85,7 @@ func (drawer *Drawer) BuildAndSaveImage(encodedInformation []byte) error {
 	return nil
 }
 
+// load loads an image from the filePath string given. It returns a *image.RGBA
 func (g *Drawer) load(filePath string) *image.RGBA {
 	imgFile, err := os.Open(filePath)
 	defer imgFile.Close()
@@ -100,6 +99,7 @@ func (g *Drawer) load(filePath string) *image.RGBA {
 	return img.(*image.RGBA)
 }
 
+// save function saves the img (*image.RGBA type) given in to the filePath specified.
 func (g *Drawer) save(filePath string, img *image.RGBA) {
 	imgFile, err := os.Create(filePath)
 	defer imgFile.Close()

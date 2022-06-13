@@ -17,36 +17,20 @@ type imageGenerator interface {
 	BuildAndSaveImage(encodedInformation []byte) error
 }
 
-// this interface is for the implementation of different types of save operations.
-// ver si la uso
-/*
-type imageSaver interface {
-	SaveImage() (err error)
-}
-*/
-/*
-// Service contains functionalities related to avatar generation.
-type Service struct {
-	encoder   cryptoEncoder
-	generator imageGenerator
-	//saver     imageSaver
-}
-*/
-
-// Information contains information(?)
+// Information contains the fields for the information to encode.
 type Information struct {
 	// here go all information that yo want to encode
 	Email string
 }
 
+// GeneratorOne is an struct that has an default encoder and image generator.
 type GeneratorOne struct {
-	// juampi te robo los nombres de las interfaces
 	encoder   cryptoEncoder
 	generator imageGenerator
 }
 
-// DefaultAvatarGeneration returns a default avatar generator with a Sha1Encoder
-// and a default avatar drawer. You must add an "blankAvatar.png" file inside your main folder.
+// DefaultAvatarGeneration returns a default avatar generator (*GeneratorOne) with a Sha1Encoder
+// and a default avatar drawer. You must add a "blankAvatar.png" file inside your main folder.
 func DefaultAvatarGeneration() *GeneratorOne {
 	return &GeneratorOne{
 		encoder:   encoder.NewSha1Encoder(),
@@ -54,6 +38,10 @@ func DefaultAvatarGeneration() *GeneratorOne {
 	}
 }
 
+// GenerateAndSaveAvatar takes the information of the type e.g: information.Information(Email:"your email goes here").
+// It generates the identicon for the information and outputs a "newAvatar.jpg" file.
+// You can change the type of information you want to encode by adding it as a field to the information struct and
+// change the argument of s.encoder.EncodeInformation()
 func (s *GeneratorOne) GenerateAndSaveAvatar(information Information) error {
 	//here will be all logic
 	defer func() {
