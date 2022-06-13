@@ -59,35 +59,3 @@ func (s *GeneratorOne) GenerateAndSaveAvatar(information Information) error {
 	}
 	return nil
 }
-
-// CONSULTAR is
-/*
-Quiero saber como sería el uso del paquete. Entender como se usaría asi poder
-ver por qué tienen que tener distintas funcionalidades.
-2DA CONSULTA
-Como construir un instanciador de los structs vacío y otro que permita variar los parámetros
-Es decir, como hizo wini en la consulta, que yo pueda darle otro encoder y otra generación
-de imagenes.
-
-Suponiendo un funcionamiento del paquete:
-gen1 := DefaultAvatarGeneration() → me genera un GeneratorOne
-
-// s es la información a hashear
-s := "matias.patzer@gmail.com"
-
-encodedInformation, encodeErr := gen1.EncodeInformation(s)
-if encodeErr != nil {
-	fmt.Errorf(encodeErr)
-}
-// acá yo tendría mi string hasheado. Por como lo tengo implementado es un
-// array de 20 bytes
-
-errImg := gen1.BuildAndSaveImage(s)
-// me genera y guarda la imagen
-if errImg != nil {
-	fmt.Errorf(errImg)
-}
-
-*/
-
-// LA OTRA CONSULTA ESTÁ EN SERVICE.GO DE IMAGES
