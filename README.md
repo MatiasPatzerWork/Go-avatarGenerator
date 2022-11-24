@@ -21,7 +21,7 @@ func main() {
 	// initialize the generator called avGenerator with the function DefaultAvatar Generation
 	avGenerator := gen.DefaultAvatarGeneration()
 	// this is the information to be encoded
-	email := "matias.patzer@gmail.com"
+	email := "your.email@gmail.com"
 	// this function will do everything for you;)
 	avGenerator.GenerateAndSaveAvatar(gen.Information{Email: email})
 	// just to keep track of the execution
